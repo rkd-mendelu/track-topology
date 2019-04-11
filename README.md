@@ -1,2 +1,2 @@
-# RKD-LS18-19-
+# RKD-LS18-19
 Řízení kolejové dopravy
