@@ -2,7 +2,7 @@
 
 ## Generates graph using dot dependency
 
-Generates graph from input.gv to output.svg
+Generate graph from input.gv to output.svg using:
 ```
 ./render_topo.sh
 ```
