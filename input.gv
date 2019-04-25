@@ -1,0 +1,34 @@
+digraph finite_state_machine
+
+{
+	# page and drawing settings
+
+	fixedsize="true";
+	page="11.6,8.3";
+	size="11.5,7.3";
+	ratio= "compress";
+	overlap="false";
+
+	# type of node definition
+	# node [shape = point ]; bod;
+	node [shape = doublecircle, fontsize = 23, color  = blue, width = 3 ];S_START;
+	node [shape = doublecircle, fontsize = 26, color  = red, width = 2 ];ERR;
+
+	# type of multiple nodes definition
+	node [shape = doublecircle, fontsize = 15, color  = green, width = 1.2 ];{
+		A B C
+	};
+	#other nodes definition
+
+	node [rank=max, shape = circle , fontsize = 14, color =black, width = 1 ];
+
+
+########################################################################################################################
+
+	# definition of connections between nodes
+	S_START -> B
+	A -> B	[ label = "ide" , fontsize = 24 ];
+	B -> C	[ label = "neide" , fontsize = 24];
+	B -> ERR
+	B_V1 -> B_V2
+}

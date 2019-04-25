@@ -1,0 +1,77 @@
+//	S_START -> KIN_UNKNOWN			[ label = "else" ];
+# -----------------------------------------------------------------------------
+	S_START -> S_IDENTIFIER         		[ label = "\' _, A..Z, a..z \'" ];
+		S_IDENTIFIER -> S_IDENTIFIER		[ label = "_, 0..9, a..z, A..Z" ];
+		#S_IDENTIFIER -> KW_DOUBLE			[ label = "double" ];
+		#S_IDENTIFIER -> KW_INT				[ label = "int" ];
+		#S_IDENTIFIER -> KW_SRING			[ label = "string" ];
+		#S_IDENTIFIER -> KW_CIN				[ label = "cin" ];
+		#S_IDENTIFIER -> KW_COUT			[ label = "cout" ];
+		#S_IDENTIFIER -> KW_ELSE			[ label = "else" ];
+		#S_IDENTIFIER -> KW_FOR				[ label = "for" ];
+		#S_IDENTIFIER -> KW_IF				[ label = "if" ];
+		#S_IDENTIFIER -> KW_RETURN			[ label = "return" ];
+		#S_IDENTIFIER -> KW_LENGTH			[ label = "length" ];
+		#S_IDENTIFIER -> KW_SUBSTR			[ label = "substr" ];
+		#S_IDENTIFIER -> KW_CONCAT			[ label = "concat" ];
+		#S_IDENTIFIER -> KW_FIND			[ label = "find" ];
+		#S_IDENTIFIER -> KW_SORT			[ label = "sort" ];
+		S_IDENTIFIER -> KIN_UNKNOWN			[ label = "else" ];
+# -----------------------------------------------------------------------------
+    S_START -> S_NUMBER         		
+    	S_NUMBER -> S_NUMBER			[ label = "e, E, ., 0..9" ];
+    	S_NUMBER -> KIN_NUM_INT			[ label = "dont have ., e, E" ];
+    	S_NUMBER -> KIN_NUM_DOUBLE		[ label = "have ., e, E" ];
+    	S_NUMBER -> KIN_UNKNOWN			[ label = "else" ];
+# -----------------------------------------------------------------------------
+	S_START -> S_SLASH							[ label = "/" ];
+		S_SLASH -> S_COMMENT_BLOCK      		[ label = "*" ];
+        	S_COMMENT_BLOCK -> S_START 		   	[ label = "*/" ];
+        	S_COMMENT_BLOCK -> S_COMMENT_BLOCK 	[ label = "everything" ];
+        	S_COMMENT_BLOCK -> KIN_UNKNOWN	   	[ label = "EOF" ];
+        S_SLASH -> S_COMMENT_LINE   			[ label = "/" ];
+        	S_COMMENT_LINE -> S_START 		   	[ label = "\\n" ];
+        	S_COMMENT_LINE -> S_COMMENT_LINE   	[ label = "everything" ];
+        	S_COMMENT_LINE -> KIN_UNKNOWN	   	[ label = "EOF" ];
+        S_SLASH -> KIN_DIV          			[ label = "_, 0..9, a..z, A..Z" ];
+        S_SLASH -> KIN_UNKNOWN					[ label = "else" ];
+# -----------------------------------------------------------------------------
+	S_START -> S_PLUS             		[ label = "+" ];
+        S_PLUS -> KIN_PLUSPLUS       	[ label = "+" ];
+        S_PLUS -> KIN_PLUS          	[ label = "_, 0..9, a..z, A..Z" ];
+        S_PLUS -> KIN_UNKNOWN			[ label = "else" ];
+# -----------------------------------------------------------------------------
+	S_START -> S_MINUS              	[ label = "-" ];
+	S_MINUS -> KIN_MINUSMINUS       	[ label = "-" ];
+    S_MINUS -> KIN_MINUS				[ label = "_, 0..9, a..z, A..Z" ];
+    S_MINUS -> KIN_UNKNOWN				[ label = "else" ];
+# -----------------------------------------------------------------------------
+	S_START -> S_GREATER           		[ label = ">" ];
+	S_GREATER -> KIN_SCIN				[ label = ">" ];
+	S_GREATER -> KIN_GREATER_EQ			[ label = "=" ];
+	S_GREATER -> KIN_GREATER			[ label = "_, 0..9, a..z, A..Z" ];
+	S_GREATER -> KIN_UNKNOWN			[ label = "else" ];
+# -----------------------------------------------------------------------------
+    S_START -> S_SMALLER            	[ label = "<" ];
+		S_SMALLER -> KIN_SCOUT			[ label = ">" ];
+		S_SMALLER -> KIN_SMALLER_EQ		[ label = "=" ];
+		S_SMALLER -> KIN_SMALLER		[ label = "_, 0..9, a..z, A..Z" ];
+		S_SMALLER -> KIN_UNKNOWN		[ label = "else" ];
+# -----------------------------------------------------------------------------
+    S_START -> S_EQUAL              	[ label = "=" ];
+		S_EQUAL -> KIN_EQ				[ label = "=" ];
+		S_EQUAL -> KIN_ASSIGNEMENT		[ label = "_, 0..9, a..z, A..Z" ];
+		S_EQUAL -> KIN_UNKNOWN			[ label = "else" ];
+# -----------------------------------------------------------------------------
+    S_START -> S_SCREAMER           	[ label = "!" ];
+		S_SCREAMER -> KIN_NOT_EQ		[ label = "=" ];
+		S_SCREAMER -> KIN_UNKNOWN		[ label = "else" ];
+		S_SCREAMER -> KIN_UNKNOWN		[ label = "else" ];
+# -----------------------------------------------------------------------------
+    S_START -> S_TEXT               	[ label = "\"" ];
+		S_TEXT -> KIN_UNKNOWN			[ label = "EOF" ];
+		S_TEXT -> S_TEXT				[ label = "_, 0..9, a..z, A..Z, whitespace" ];
+		S_TEXT -> KIN_TEXT				[ label = "\"" ];
+		S_TEXT -> S_TEXT_ESC            [ label = "\\ " ];
+		S_TEXT_ESC -> S_TEXT			[ label = "\\t, \\n, \\x, \\X" ];
+		S_TEXT_ESC -> KIN_UNKNOWN 		[ label = "else" ];
